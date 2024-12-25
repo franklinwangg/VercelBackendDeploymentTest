@@ -51,26 +51,34 @@ const Comment = (props) => {
         props.handleReplySubmission();
     };
 
-    const handleClickSubmitReplyButton = async (post) => {
-        // print post?
-        const postId = props.post;
-        const commentId = props.id;
+    const handleClickSubmitReplyButton = async () => {
 
+        const post_id = props.post_id;
+        const comment_id = props.comment_id;
+
+        console.log("props : ", props);
         try {
-            const response = await fetch(`http://localhost:5000/api/comments/${postId}/${commentId}`, {
+
+                        // <Comment comment_id = {comment.comment_id} post_id = {location.state.id} author = {comment.author} level = {comment.level}
+                        //     handleReplySubmission = {handleReplySubmission}/>
+            const response = await fetch(`http://localhost:3001/api/comments?post_id=${post_id}&comment_id=${comment_id}`, { // ???
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    author: username,
-                    comment: replyCommentToPost,
-                    parentPost: props.parentPost,
-                    idOfParentPost: props.post,
-                    level: props.level + 1,
-                    idOfParentComment: props.id,
+                    // post_id : props.post,
+                    author : username,
+                    content : replyCommentToPost,
+                    level : props.level + 1,
+                    // parent_comment_id : props.post,
                 }),
             });
+
+            // const result = await client.query(
+            //     "INSERT INTO comments (post_id, author, content, created_at, level, parent_comment_id) VALUES ($1, $2, $3, NOW(), $4, $5) RETURNING *",
+            //     [postId, author, content, parseInt(level), commentId] // level + 1 previously
+            //   );
 
             if (response.ok) {
                 handleReplySubmission();
@@ -93,7 +101,7 @@ const Comment = (props) => {
                 </div>
 
 
-                <div className="comment-contents">{props.comment}</div>
+                <div className="comment-contents">{props.content}</div>
             </div>
 
 

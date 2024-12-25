@@ -3,7 +3,18 @@ import bcrypt from "bcryptjs";
 
 // Export Vercel-compatible handler
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Update with your frontend's origin
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
+  
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // Send success status
+  }
+  if(req.method === "GET") {
+    return res.json("fetched");
+  }
+  
+  else if (req.method === "POST") {
     const { action } = req.query;
 
     if (action === "login") {
@@ -11,8 +22,9 @@ export default async function handler(req, res) {
     } else {
       await handleRegister(req, res);
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
+  } 
+  else {
+    // res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

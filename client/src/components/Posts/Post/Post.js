@@ -16,12 +16,6 @@ const Post = () => {
     const [commentToPost, setCommentToPost] = useState("");
     const [isReadyToRender, setIsReadyToRender] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    
-
-    // fetch comments
-    //            const response = await fetch(`http://localhost:3001/api/comments/${postId}`); => FOR FETCHING PREEXISTING COMMENTS
-    //                 await fetch(`http://localhost:3001/api/comments/${idOfParentPost}`, => FOR POSTING COMMENTS
-
 
     useEffect(() => {
         const fetchAndSortComments = async () => {           
@@ -41,7 +35,7 @@ const Post = () => {
     const handleReplySubmission = async () => {
 
         const fetchedComments = await fetchComments();
-        setComments(fetchedComments.rows);
+        setComments(fetchedComments);
 
     };
 
@@ -53,28 +47,29 @@ const Post = () => {
         else {
 
             const author = username;
-            const comment = commentToPost;
+            const content = commentToPost;
             const idOfParentPost = location.state.id;
 
-            console.log("1");
             setIsLoading(true);
             try {
-                await fetch(`http://localhost:3001/api/comments?postId=${idOfParentPost}&commentId=null`, { // postId, commentId
+                await fetch(`http://localhost:3001/api/comments?post_id=${idOfParentPost}&comment_id=null`, { // postId, commentId
                 method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         author: author,
-                        comment: comment,
+                        content: content,
                         idOfParentPost: idOfParentPost,
-                        level: 0
+                        level: 1
                     })
-                });
+                }); // you say "comment", not "content"
 
                 const fetchedComments = await fetchComments();
 
                 // while we await it, have the button turn grey, and have a little swirling loading sign replace the text on the button
-                setComments(fetchedComments.rows);
+                setComments(fetchedComments);
+
                 setCommentToPost("");
+
             }
             catch (error) {
                 console.log("uh oh! error is ", error);
@@ -113,7 +108,6 @@ const Post = () => {
             }
 
             const data = await response.json();
-            console.log("Fetched comments : ", data.rows);
 
             return data.rows;
         }
@@ -138,7 +132,6 @@ const Post = () => {
             }
             else return -1;
         });
-        // console.log("sorted data comments : ", sortedDataComments);
 
         return sortedDataComments;
     }
@@ -148,7 +141,7 @@ const Post = () => {
 
         // why does dCILA get called again when button is clicked?
         const levelArrays = [];
-        var currLevel = 0;
+        var currLevel = 1; // originally 0?
 
         while (true) {
 
@@ -182,20 +175,18 @@ const Post = () => {
         // if comment is on last level of levelArrays, we need to stop it cuz otherwise will 
         // trigger outOfBounds error
         if (level === levelArrays.length - 1) {
-
             return renderedComments;
         }
         else {
             // find all matching child comments in next level
             for (let i = 0; i < levelArrays[level + 1].length; i++) {
+                
                 if (levelArrays[level + 1][i].parent_comment_id == currentComment.comment_id) { // parentCommentId undefined?
                     temp.push(levelArrays[level + 1][i]);
-
                 }
             }
 
             // render all of its child comments
-
             for (let i = 0; i < temp.length; i++) {
                 const arrayOfChildElementsHTML = renderEachLevel(levelArrays, temp[i], level + 1);
                 for (let j = 0; j < arrayOfChildElementsHTML.length; j++) {
@@ -218,28 +209,26 @@ const Post = () => {
     };
 
     const renderComment = (comment) => {
-
         return (
-            // <Comment />
-            // id={index === comments.length - 1 ? "new-comment" : null} 
 
-            <Comment post={location.state.id} author={comment.author} comment={comment.content} level={comment.level} id={comment.id}
-                handleReplySubmission={handleReplySubmission} />
+            // <Comment post={location.state.id} author={comment.author} comment={comment.content} level={comment.level} id={comment.id}
+            //     handleReplySubmission={handleReplySubmission} />
+            <Comment comment_id = {comment.comment_id} post_id = {location.state.id} author = {comment.author} content = {comment.content} 
+            level = {comment.level} handleReplySubmission = {handleReplySubmission}/>
         );
     };
 
     const renderComments = () => {
         if (comments.length === 0) {
-            // console.log("no comments available to render yet");
         }
         else {
             const overallRenderedComments = [];
-            const levelArrays = divideCommentsIntoLevelArrays(); // not an array
+            const levelArrays = divideCommentsIntoLevelArrays(); // undefined?
 
-            for (let i = 0; i < levelArrays[0].length; i++) {
-                // console.log("i ", i);
+
+            for (let i = 0; i < levelArrays[0].length; i++) { // levelArrays[0] is nonexistent
                 const arrayOfRecursiveElementsHTML = renderEachLevel(levelArrays, levelArrays[0][i], 0); // smth wrong with this
-                // console.log("arrayOfRecursiveElements length : ", arrayOfRecursiveElementsHTML.length);
+
                 for (let j = 0; j < arrayOfRecursiveElementsHTML.length; j++) {
                     overallRenderedComments.push(
                         React.cloneElement(arrayOfRecursiveElementsHTML[j], { key: arrayOfRecursiveElementsHTML[j].props.id })
@@ -247,9 +236,6 @@ const Post = () => {
                 }
             }
 
-            // for(let i = 0; i < overallRenderedComments.length; i ++) {
-            //     console.log(i, " : ", overallRenderedComments[i]);  
-            // }
             return overallRenderedComments;
         }
     }
@@ -263,9 +249,7 @@ const Post = () => {
         try {
             // const response2 = await fetch(location.state.image_url);
    
-            // console.log("2");
             // const articleImageBlob = await response2.blob();
-            // console.log("articleImage : ", articleImage);
     
             // const articleImageUrl = URL.createObjectURL(articleImageBlob);
     

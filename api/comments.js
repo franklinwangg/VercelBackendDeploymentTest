@@ -15,7 +15,11 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
   
-  if (req.method === "GET") {
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // End the response for OPTIONS
+  }
+  else if (req.method === "GET") {
     // it doesn't even get to here to parse the postId lol
     try {
       const { postId } = req.query; // undefined
@@ -37,8 +41,6 @@ export default async function handler(req, res) {
   
   else if (req.method === "POST") {
 
-    console.log("0");
-
     // For handling form data (including image uploads)
     const form = new IncomingForm();
 
@@ -49,16 +51,24 @@ export default async function handler(req, res) {
       }
 
       try {
-        const { postId, commentId } = req.query; // Get parameters from query string
+
+
+        const { post_id, comment_id } = req.query; // Get parameters from query string
         const { author, content, level } = fields; // Get content from form fields
         const client = new Client({ connectionString: process.env.SUPABASE_CONNECTION_STRING_2 });
         await client.connect();
 
-        if (commentId) {
-          // Replying to an existing comment
+        if (comment_id) {
+
+          // post_id : props.post,
+          // author : username,
+          // content : replyCommentToPost,
+          // level : props.level + 1,
+          // parent_comment_id : props.post,
+
           const result = await client.query(
             "INSERT INTO comments (post_id, author, content, created_at, level, parent_comment_id) VALUES ($1, $2, $3, NOW(), $4, $5) RETURNING *",
-            [postId, author, content, parseInt(level) + 1, commentId]
+            [post_id, author, content, parseInt(level), comment_id] // level + 1 previously
           );
 
           res.status(200).json({ rows: result.rows });
@@ -66,7 +76,7 @@ export default async function handler(req, res) {
           // Adding a new top-level comment
           const result = await client.query(
             "INSERT INTO comments (post_id, author, content, created_at, level) VALUES ($1, $2, $3, NOW(), $4) RETURNING *",
-            [postId, author, content, level]
+            [post_id, author, content, level]
           );
 
           res.status(201).json(result.rows[0]);

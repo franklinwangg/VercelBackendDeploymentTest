@@ -22,7 +22,6 @@ const s3 = new S3({
 
 export default async function handler(req, res) {
 
-  console.log("0");
 
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend's origin
   // res.setHeader('Access-Control-Allow-Origin', 'https://boxhub-h57jccbeh-franklin-wangs-projects.vercel.app/'); // Update with your frontend's origin

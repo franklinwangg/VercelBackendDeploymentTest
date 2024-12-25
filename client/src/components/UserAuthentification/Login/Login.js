@@ -15,26 +15,19 @@ function Login() {
     const handleButtonClick = async () => {
 
         try {
-
-            console.log("enteredPassword", enteredPassword);
-            const response = await fetch("http://localhost:5000/api/users/login", {
+            const response = await fetch("http://localhost:3001/api/users?action=login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    username : enteredUsername,
-                    password : enteredPassword,
-                })
+                    username: enteredUsername,
+                    password: enteredPassword,
+                }),
             });
 
-            console.log("printed");
             const responseJSON = await response.json();
 
             if (responseJSON.success === true) {
-
-                console.log("enteredUsername is ", enteredUsername);
                 setUsername(enteredUsername);
-
-                console.log("username is now ", username);
                 navigate("/");
             } else {
                 console.log("login failed");
