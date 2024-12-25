@@ -1,1 +1,25 @@
-.vercel
+# Vercel deployment files
+.vercel/
+
+# Node modules
+node_modules/
+
+# Log files
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Build directories (if applicable)
+build/
+dist/
+
+# Temporary files
+*.log
+
+# Miscellaneous files that don't need to be tracked
+goals.txt
+oldCode.txt
+overallGoals.txt

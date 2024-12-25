@@ -1,4 +1,0 @@
-create a test endpoint in users.js, just to see that it's going through
-
-response has no cors headers, that's why
-handler method looks okay but  be sure that method is exact endpoint method called and no error happened in server side

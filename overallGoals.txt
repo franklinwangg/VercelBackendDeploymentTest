@@ -1,8 +1,0 @@
-routes to fix : 
-
-- comments
-- createPostImage
-- createPostTitleAndContent
-- fetchAllPosts
-- posts 
-- users
