@@ -1,6 +1,8 @@
-import { Client } from "pg";
-import { IncomingForm } from "formidable"; // for parsing form data (if file upload is involved)
-import { promises as fs } from "fs";
+import pkg from 'pg';
+const { Client } = pkg;
+
+import { IncomingForm } from 'formidable'; // for parsing form data
+import { promises as fs } from 'fs';
 
 export const config = {
   api: {
@@ -9,73 +11,54 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend's origin
-  // res.setHeader('Access-Control-Allow-Origin', 'https://boxhub-h57jccbeh-franklin-wangs-projects.vercel.app/'); // Update with your frontend's origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
-  
 
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return res.status(200).end(); // End the response for OPTIONS
-  }
-  else if (req.method === "GET") {
-    // it doesn't even get to here to parse the postId lol
+  } else if (req.method === 'GET') {
     try {
-      const { postId } = req.query; // undefined
+      const { postId } = req.query;
 
       const client = new Client({
         connectionString: process.env.SUPABASE_CONNECTION_STRING_2,
       });
 
       await client.connect();
-      const result = await client.query("SELECT * FROM comments WHERE post_id = $1", [postId]);
+      const result = await client.query('SELECT * FROM comments WHERE post_id = $1', [postId]);
       await client.end();
 
-      res.status(200).json({ rows: result.rows }); // Send comments as JSON response
+      res.status(200).json({ rows: result.rows });
     } catch (error) {
-      console.error("Error in GET request:", error.message);
-      res.status(500).send("Server Error");
+      console.error('Error in GET request:', error.message);
+      res.status(500).send('Server Error');
     }
-  } 
-  
-  else if (req.method === "POST") {
-
-    // For handling form data (including image uploads)
+  } else if (req.method === 'POST') {
     const form = new IncomingForm();
 
     form.parse(req, async (err, fields, files) => {
       if (err) {
-        console.error("Form Parsing Error:", err);
-        return res.status(500).json({ error: "Failed to parse form data" });
+        console.error('Form Parsing Error:', err);
+        return res.status(500).json({ error: 'Failed to parse form data' });
       }
 
       try {
-
-
         const { post_id, comment_id } = req.query; // Get parameters from query string
         const { author, content, level } = fields; // Get content from form fields
         const client = new Client({ connectionString: process.env.SUPABASE_CONNECTION_STRING_2 });
         await client.connect();
 
         if (comment_id) {
-
-          // post_id : props.post,
-          // author : username,
-          // content : replyCommentToPost,
-          // level : props.level + 1,
-          // parent_comment_id : props.post,
-
           const result = await client.query(
-            "INSERT INTO comments (post_id, author, content, created_at, level, parent_comment_id) VALUES ($1, $2, $3, NOW(), $4, $5) RETURNING *",
-            [post_id, author, content, parseInt(level), comment_id] // level + 1 previously
+            'INSERT INTO comments (post_id, author, content, created_at, level, parent_comment_id) VALUES ($1, $2, $3, NOW(), $4, $5) RETURNING *',
+            [post_id, author, content, parseInt(level), comment_id]
           );
 
           res.status(200).json({ rows: result.rows });
         } else {
-          // Adding a new top-level comment
           const result = await client.query(
-            "INSERT INTO comments (post_id, author, content, created_at, level) VALUES ($1, $2, $3, NOW(), $4) RETURNING *",
+            'INSERT INTO comments (post_id, author, content, created_at, level) VALUES ($1, $2, $3, NOW(), $4) RETURNING *',
             [post_id, author, content, level]
           );
 
@@ -84,12 +67,11 @@ export default async function handler(req, res) {
 
         await client.end();
       } catch (error) {
-        console.error("Error in POST request:", error.message);
-        res.status(500).send("Server Error");
+        console.error('Error in POST request:', error.message);
+        res.status(500).send('Server Error');
       }
     });
   } else {
-    // Handle unsupported HTTP methods
-    res.status(405).json({ message: "Method Not Allowed" });
+    res.status(405).json({ message: 'Method Not Allowed' });
   }
 }

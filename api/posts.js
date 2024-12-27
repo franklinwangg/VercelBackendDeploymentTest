@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
 import { S3 } from "@aws-sdk/client-s3";
-import { Client } from "pg";
+import pkg from 'pg';
+const { Client } = pkg;
 import formidable from "formidable"; // For file parsing without multer
 import fs from "fs";
 

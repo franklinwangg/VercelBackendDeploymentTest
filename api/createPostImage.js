@@ -1,8 +1,15 @@
-const { S3, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { Client } = require("pg");
-const multer = require("multer");
+import {S3, PutObjectCommand} from "@aws-sdk/client-s3";
+import pkg from 'pg';
+const { Client } = pkg;
+import multer from "multer";
 
-require("dotenv").config();
+// const { S3, PutObjectCommand } = require("@aws-sdk/client-s3");
+// const { Client } = require("pg");
+// const multer = require("multer");
+
+import dotenv from "dotenv";
+dotenv.config();
+// require("dotenv").config();
 
 const s3 = new S3({
     region: "us-west-1",
@@ -21,10 +28,15 @@ client.connect();
 
 const imageUpload = multer({ storage: multer.memoryStorage() });
 
-module.exports = async (req, res) => {
+export default async function createPostImage(req, res) {
     try {
+        console.log("req.file ", req.file);
+        console.log("req ", req);
+
+
         const { postId } = req.body;
-        const image = req.file;
+        const image = req.file; // image is undefined
+
 
         // Upload image to S3 bucket
         const params = {
