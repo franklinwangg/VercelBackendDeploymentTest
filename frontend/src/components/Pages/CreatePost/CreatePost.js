@@ -26,6 +26,8 @@ function CreatePost() {
         // two fetch methods?
         // first fetch method 1) sends in the title and content to database, 2) initializes the multer instance
         // await fetch("http://localhost:3000/api/posts/createPostTitleAndContent", {
+        let postIdVar;
+
         await fetch("http://localhost:3000/api/createPostTitleAndContent", {
             method: "POST",
             headers: {
@@ -36,18 +38,24 @@ function CreatePost() {
                 content: content,
             })
         })
+        .then((response) => {
+            const jsonResponse = response.json();
+            return jsonResponse;
+        })
+        .then((data) => {
+            postIdVar = data.postId;
+
+        })
 
         const formData = new FormData();
 
         if (image) {
-            console.log("yes image : ", image);
             formData.append("image", image); // Append the image file
-        }
-        else {
-            console.log("no image");
-        }
 
-        console.log("FORM DATA : ", formData);
+            formData.append("postId", postIdVar); // Append the image file            
+        }
+        else {}
+
         // second fetch method uploads the image using the multer instance
         await fetch("http://localhost:3000/api/createPostImage", {
             method: "POST",

@@ -38,13 +38,11 @@ function Homepage() {
 
             try {
 
-                const fetchedPosts = await fetch("http://localhost:3000/api/posts"); //https://boxhub-backend.vercel.app/api/posts
-                // const fetchedPosts = await fetch("https://boxhub-backend.vercel.app/api/posts/"); 
+                const fetchedPosts = await fetch("http://localhost:3000/api/posts"); // failed to fetch this
     
                 if (fetchedPosts.ok) {
                     const fetchedPostsJson = await fetchedPosts.json();
     
-                    // setPosts(fetchedPostsJson.rows); // no rows property?
                     setPosts(fetchedPostsJson); // no rows property?
 
                 }
@@ -68,23 +66,9 @@ function Homepage() {
 
         const tempPosts = posts.slice(-8);
 
-
         if (tempPosts.length > 0) {
-            // setPost1(tempPosts[0]);
             setPost1(tempPosts[tempPosts.length - 1]);
-
-
         }
-        // if (tempPosts.length > 1) setPost2(tempPosts[1]);
-        // if (tempPosts.length > 2) setPost3(tempPosts[2]);
-        // if (tempPosts.length > 3) setPost4(tempPosts[3]);
-        // if (tempPosts.length > 4) setPost5(tempPosts[4]);
-        // if (tempPosts.length > 5) setPost6(tempPosts[5]);
-        // if (tempPosts.length > 6) setPost7(tempPosts[6]);
-        // if (tempPosts.length > 7) setPost8(tempPosts[7]);
-        // if (posts.length > 8) {
-        //     setRemainingPosts(posts.slice(0, -8)); // Exclude the last 8 posts
-        // }
 
         if (tempPosts.length > 1) setPost2(tempPosts[tempPosts.length - 2]);
         if (tempPosts.length > 2) setPost3(tempPosts[tempPosts.length - 3]);
@@ -102,7 +86,6 @@ function Homepage() {
 
     const handleLPBClick = async () => {
         const test = await fetch("https://boxhub-backend.vercel.app/api/testEndpoint");
-        console.log("test : ", test);
 
         // try {
         //     navigate("/Login");
@@ -134,6 +117,7 @@ function Homepage() {
                         <div id="first-three-posts">
                             <div id="first-post">
                                 {post1 ? (
+                                    
                                     <div id="first-six-posts-image-and-title-wrapper">
                                         <img className="first-six-posts-post-image" src={post1.image_url} alt={post1.title} />
                                         <Link

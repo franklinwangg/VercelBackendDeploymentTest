@@ -26,16 +26,15 @@ const client = new Client({
 
 client.connect();
 
-const imageUpload = multer({ storage: multer.memoryStorage() });
+// const imageUpload = multer({ storage: multer.memoryStorage() });
 
 export default async function createPostImage(req, res) {
     try {
-        console.log("req.file ", req.file);
-        console.log("req ", req);
 
 
         const { postId } = req.body;
         const image = req.file; // image is undefined
+
 
 
         // Upload image to S3 bucket
@@ -49,7 +48,7 @@ export default async function createPostImage(req, res) {
 
         await s3.send(new PutObjectCommand(params));
 
-        const imageUrl = `https://boxhub-images.s3.us-west-1.amazonaws.com/${postId}`;
+        const imageUrl = `https://boxhub-images.s3.us-west-1.amazonaws.com/${postId}`; // why is postId undefined? cuz req.body is undefined, since it's not being parsed properly
         await client.query("UPDATE posts SET image_url = $1 WHERE id = $2", [
             imageUrl,
             postId,

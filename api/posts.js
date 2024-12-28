@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+// import AWS from "aws-sdk";
 import { S3 } from "@aws-sdk/client-s3";
 import pkg from 'pg';
 const { Client } = pkg;
@@ -32,18 +32,24 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     // Fetch posts from PostgreSQL
+    console.log("first");
+
     const client = new Client({
       connectionString: process.env.SUPABASE_CONNECTION_STRING_2,
     });
 
+    console.log("tryna connect");
     await client.connect();
+    console.log("done connecting");
 
     try {
 
       const result = await client.query("SELECT * FROM posts");
+      console.log("result : ", result);
       await client.end();
       return res.status(200).json(result.rows); // Send the posts as JSON
     } catch (error) {
+      console.log("wow");
       console.error("Error:", error.message);
       await client.end();
       return res.status(500).send("Server Error");
