@@ -56,7 +56,6 @@ const Comment = (props) => {
         const post_id = props.post_id;
         const comment_id = props.comment_id;
 
-        console.log("props : ", props);
         try {
 
                         // <Comment comment_id = {comment.comment_id} post_id = {location.state.id} author = {comment.author} level = {comment.level}

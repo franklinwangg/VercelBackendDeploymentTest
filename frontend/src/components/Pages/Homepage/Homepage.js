@@ -108,8 +108,6 @@ function Homepage() {
 
         <div>
             <div>
-                <button onClick={handleLPBClick}>click me</button>
-
                 <h1 id="recent-boxing-news">Recent Boxing News</h1>
 
                 <div className="posts-container">
