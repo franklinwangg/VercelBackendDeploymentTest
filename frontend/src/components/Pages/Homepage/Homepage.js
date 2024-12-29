@@ -36,6 +36,7 @@ function Homepage() {
             try {
               console.log("1");
               const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
+              
           
               // Check if the response status is not OK
               if (!fetchedPosts.ok) {

@@ -41,6 +41,8 @@ export default async function handler(req, res) {
 
     try {
 
+      console.log("1");
+
       const result = await client.query("SELECT * FROM posts");
       await client.end();
       return res.status(200).json(result.rows); // Send the posts as JSON
@@ -131,6 +133,8 @@ export default async function handler(req, res) {
       }
     });
   } else {
+    console.log("2");
+
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 }
