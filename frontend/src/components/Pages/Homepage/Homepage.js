@@ -35,10 +35,21 @@ function Homepage() {
         const fetchPosts = async () => {
 
             try {
-
                 console.log("1");
-                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts"); 
-    
+                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
+
+                // Check if the response status is not OK
+                if (!fetchedPosts.ok) {
+                  // Log the status and status text for debugging
+                  console.error(`Error fetching posts: ${fetchedPosts.status} ${fetchedPosts.statusText}`);
+                  
+                  // Try to parse the response body if it contains useful error details
+                  const errorDetails = await fetchedPosts.text();
+                  console.error("Error details:", errorDetails);
+            
+                  return; // Exit the function early since this is an error
+                }
+                    
                 if (fetchedPosts.ok) {
                     console.log("2");
                     const fetchedPostsJson = await fetchedPosts.json();
