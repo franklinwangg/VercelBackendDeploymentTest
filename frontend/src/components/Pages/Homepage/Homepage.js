@@ -38,7 +38,7 @@ function Homepage() {
 
             try {
 
-                const fetchedPosts = await fetch("http://localhost:3000/api/posts"); // failed to fetch this
+                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts"); // failed to fetch this
     
                 if (fetchedPosts.ok) {
                     const fetchedPostsJson = await fetchedPosts.json();
@@ -85,7 +85,7 @@ function Homepage() {
 
 
     const handleLPBClick = async () => {
-        const test = await fetch("https://boxhub-backend.vercel.app/api/testEndpoint");
+        const test = await fetch("https://boxhub-mu.vercel.app/api/testEndpoint");
 
         // try {
         //     navigate("/Login");

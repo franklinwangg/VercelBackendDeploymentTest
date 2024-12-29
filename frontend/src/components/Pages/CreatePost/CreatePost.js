@@ -28,7 +28,7 @@ function CreatePost() {
         // await fetch("http://localhost:3000/api/posts/createPostTitleAndContent", {
         let postIdVar;
 
-        await fetch("http://localhost:3000/api/createPostTitleAndContent", {
+        await fetch("https://boxhub-mu.vercel.app/api/createPostTitleAndContent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function CreatePost() {
         else {}
 
         // second fetch method uploads the image using the multer instance
-        await fetch("http://localhost:3000/api/createPostImage", {
+        await fetch("https://boxhub-mu.vercel.app/api/createPostImage", {
             method: "POST",
             body: formData,
         })

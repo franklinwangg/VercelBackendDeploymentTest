@@ -6,19 +6,9 @@ function Register() {
     const [password, setPassword] = useState("");
 
     const handleButtonClick = async (event) => {
-        // fetch("http://localhost:5000/register", {
-        //     method:"POST", 
-        //     headers: {"Content-Type": "application/json"},
-        //     body : JSON.stringify({
-        //         username: username,
-        //         password: password
-        //       })
-        // })
-
-
         try {
 
-            fetch("http://localhost:3000/api/users/", {
+            fetch("https://boxhub-mu.vercel.app/api/users/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

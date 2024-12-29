@@ -15,7 +15,7 @@ function Login() {
     const handleButtonClick = async () => {
 
         try {
-            const response = await fetch("http://localhost:3000/api/users?action=login", {
+            const response = await fetch("https://boxhub-mu.vercel.app/api/users?action=login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -32,27 +32,6 @@ function Login() {
             } else {
                 console.log("login failed");
             }
-
-            // const response = await fetch("http://localhost:5000/api/users/", {
-            //     method: "GET",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify({
-                    
-            //     })
-            // });
-
-            // const responseJSON = await response.json();
-
-            // if (responseJSON.success === true) {
-
-            //     console.log("enteredUsername is ", enteredUsername);
-            //     setUsername(enteredUsername);
-
-            //     console.log("username is now ", username);
-            //     navigate("/homepage");
-            // } else {
-            //     console.log("login failed");
-            // }
         } catch (error) {
             console.error("Error during login:", error);
         }
