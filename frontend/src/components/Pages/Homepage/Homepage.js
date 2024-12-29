@@ -33,42 +33,38 @@ function Homepage() {
     useEffect(() => {
 
         const fetchPosts = async () => {
-
             try {
-                console.log("1");
-                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
-
-                // Check if the response status is not OK
-                if (!fetchedPosts.ok) {
-                  // Log the status and status text for debugging
-                  console.error(`Error fetching posts: ${fetchedPosts.status} ${fetchedPosts.statusText}`);
-                  
-                  // Try to parse the response body if it contains useful error details
-                  const errorDetails = await fetchedPosts.text();
-                  console.error("Error details:", errorDetails);
-            
-                  return; // Exit the function early since this is an error
-                }
-                    
-                if (fetchedPosts.ok) {
-                    console.log("2");
-                    const fetchedPostsJson = await fetchedPosts.json();
-    
-                    console.log("3");
-                    setPosts(fetchedPostsJson); // no rows property?
-
-                    console.log("4");
-
-                }
-                else {
-                    console.log("fetched posts not ok");
-                }
+              console.log("1");
+              const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
+          
+              // Check if the response status is not OK
+              if (!fetchedPosts.ok) {
+                console.error(`Error fetching posts: ${fetchedPosts.status} ${fetchedPosts.statusText}`);
+                
+                // Try to parse the response body if it contains useful error details
+                const errorDetails = await fetchedPosts.text();
+                console.error("Error details:", errorDetails);
+          
+                return; // Exit the function early since this is an error
+              }
+          
+              // If the response is OK, parse and use the JSON
+              console.log("2");
+              const fetchedPostsJson = await fetchedPosts.json();
+          
+              console.log("3");
+              setPosts(fetchedPostsJson);
+              console.log("4");
+            } 
+            catch (error) {
+              // Handle fetch-specific or other unexpected errors
+              console.error("Fetch failed:", error.message);
+              console.error("Detailed error object:", error);
             }
-            catch(error) {
-                console.log("Error : ", error);
-            }
-
-        };
+          };
+          
+          fetchPosts();
+          
 
         fetchPosts();
     }, []);
