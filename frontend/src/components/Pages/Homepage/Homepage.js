@@ -31,19 +31,22 @@ function Homepage() {
     // const [loggedIn, setLoggedIn] = useState([]);
 
     useEffect(() => {
-        // fetch the data
-        // display it on "recent-boxing-news"
 
         const fetchPosts = async () => {
 
             try {
 
-                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts"); // failed to fetch this
+                console.log("1");
+                const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts"); 
     
                 if (fetchedPosts.ok) {
+                    console.log("2");
                     const fetchedPostsJson = await fetchedPosts.json();
     
+                    console.log("3");
                     setPosts(fetchedPostsJson); // no rows property?
+
+                    console.log("4");
 
                 }
                 else {
@@ -53,9 +56,6 @@ function Homepage() {
             catch(error) {
                 console.log("Error : ", error);
             }
-
-            // const fetchedPosts = await fetch("http://localhost:3001/api/testEndpoint"); //https://boxhub-backend.vercel.app/api/posts
-
 
         };
 

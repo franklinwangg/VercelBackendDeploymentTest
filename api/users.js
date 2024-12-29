@@ -16,14 +16,6 @@ import bcrypt from "bcryptjs";
 // app.use(express.json()); 
 
 export default async function handler(req, res) {
-  // const app = express();
-  // app.use(express.json());
-  // app.use((req, res, next) => {
-    // res.setHeader('Access-Control-Allow-Origin', '*'); // Update with your frontend's origin
-    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
-    // res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
-    // next();
-  // });
   
   console.log("first req : ", req);
   if (req.method === "OPTIONS") {
@@ -50,9 +42,6 @@ export default async function handler(req, res) {
 
 // Login handler
 async function handleLogin(req, res) {
-  // const loginApp = express(); 
-  // loginApp.use(express.json());
-
   const { username, password } = req.body;
 
   if (!username || !password) {
