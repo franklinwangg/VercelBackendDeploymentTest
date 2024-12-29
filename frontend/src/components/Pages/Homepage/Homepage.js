@@ -33,39 +33,35 @@ function Homepage() {
     useEffect(() => {
 
         const fetchPosts = async () => {
-            try {
-              console.log("1");
-              const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
-              
-          
-              // Check if the response status is not OK
-              if (!fetchedPosts.ok) {
-                console.error(`Error fetching posts: ${fetchedPosts.status} ${fetchedPosts.statusText}`);
-                
-                // Try to parse the response body if it contains useful error details
-                const errorDetails = await fetchedPosts.text();
-                console.error("Error details:", errorDetails);
-          
-                return; // Exit the function early since this is an error
-              }
-          
-              // If the response is OK, parse and use the JSON
-              console.log("2");
-              const fetchedPostsJson = await fetchedPosts.json();
-          
-              console.log("3");
-              setPosts(fetchedPostsJson);
-              console.log("4");
-            } 
-            catch (error) {
-              // Handle fetch-specific or other unexpected errors
-              console.error("Fetch failed:", error.message);
-              console.error("Detailed error object:", error);
-            }
-          };
-          
-          fetchPosts();
-          
+            // try {
+            //     const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
+
+            //     // If the response is OK, parse and use the JSON
+            //     const fetchedPostsJson = await fetchedPosts.json();
+            //     setPosts(fetchedPostsJson);
+            // }
+            // catch (error) {
+            //     // Handle fetch-specific or other unexpected errors
+            //     console.error("Fetch failed:", error.message);
+            //     console.error("Detailed error object:", error);
+            // }
+            fetch("https://boxhub-mu.vercel.app/api/posts")
+                .then((response) => {
+                    // Check the content type to determine how to handle the response
+                    const contentType = response.headers.get('Content-Type');
+                    if (contentType && contentType.includes('application/json')) {
+                        return response.json(); // Parse as JSON
+                    } else {
+                        return response.text(); // Fallback: Parse as plain text (or HTML)
+                    }
+                })
+                .then((data) => console.log('Response data:', data))
+                .catch((error) => console.error('Fetch error:', error));
+
+        };
+
+        fetchPosts();
+
 
         fetchPosts();
     }, []);
@@ -123,7 +119,7 @@ function Homepage() {
                         <div id="first-three-posts">
                             <div id="first-post">
                                 {post1 ? (
-                                    
+
                                     <div id="first-six-posts-image-and-title-wrapper">
                                         <img className="first-six-posts-post-image" src={post1.image_url} alt={post1.title} />
                                         <Link
