@@ -15,8 +15,9 @@ const client = new Client({
 
 client.connect();
 
-export default async function fetchAllPosts() {
+export default async function fetchAllPosts(req, res) {
     try {
+
         const result = await client.query("SELECT * FROM posts");
         res.status(200).json(result.rows);
     } catch (error) {

@@ -44,7 +44,6 @@ function CreatePost() {
         })
         .then((data) => {
             postIdVar = data.postId;
-
         })
 
         const formData = new FormData();

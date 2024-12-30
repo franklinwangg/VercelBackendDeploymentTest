@@ -23,3 +23,5 @@ dist/
 goals.txt
 oldCode.txt
 overallGoals.txt
+.vercel
+server.js

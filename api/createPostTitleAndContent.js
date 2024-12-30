@@ -27,8 +27,12 @@ export default async function createPostTitleAndContent(req, res) {
 
     if(req.method === "POST") {
         try {
-            const { title, content } = req.body;
+
+            // const expressReq = express.json(req);
+            // const { title, content } = expressReq.body;
     
+            const { title, content } = req.body;
+
             // Insert title into PostgreSQL table
             const insertResult = await client.query(
                 "INSERT INTO posts(title) VALUES ($1) RETURNING id",

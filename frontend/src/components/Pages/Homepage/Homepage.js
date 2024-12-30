@@ -33,18 +33,6 @@ function Homepage() {
     useEffect(() => {
 
         const fetchPosts = async () => {
-            // try {
-            //     const fetchedPosts = await fetch("https://boxhub-mu.vercel.app/api/posts");
-
-            //     // If the response is OK, parse and use the JSON
-            //     const fetchedPostsJson = await fetchedPosts.json();
-            //     setPosts(fetchedPostsJson);
-            // }
-            // catch (error) {
-            //     // Handle fetch-specific or other unexpected errors
-            //     console.error("Fetch failed:", error.message);
-            //     console.error("Detailed error object:", error);
-            // }
             fetch("https://boxhub-mu.vercel.app/api/posts")
                 .then((response) => {
                     // Check the content type to determine how to handle the response

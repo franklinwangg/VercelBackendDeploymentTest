@@ -11,6 +11,10 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+
+  // add the express.json middleware onto all the incoming requests
+  const expressReq = express.json(req);
+
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend's origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
@@ -35,6 +39,7 @@ export default async function handler(req, res) {
       res.status(500).send('Server Error');
     }
   } else if (req.method === 'POST') {
+
     const form = new IncomingForm();
 
     form.parse(req, async (err, fields, files) => {
