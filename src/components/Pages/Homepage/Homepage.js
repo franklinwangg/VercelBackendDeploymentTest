@@ -61,11 +61,17 @@ function Homepage() {
 
                 // const fetchedPosts = await fetch("http://localhost:5000/api/posts/"); //https://boxhub-backend.vercel.app/api/posts
                 const fetchedPosts = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts"); 
+                // const fetchedPosts = await fetch("https://test-vercel-backend-deployment-62pnuqdjm.vercel.app/api/posts"); 
+
 
                 if (fetchedPosts.ok) {
                     const fetchedPostsJson = await fetchedPosts.json();
 
+                    console.log("fetchedPostsJson.rows : ", fetchedPostsJson.rows);
+                    console.log("first posts ", posts);
                     setPosts(fetchedPostsJson.rows);
+                    console.log("second posts ", posts);
+
                 }
                 else {
                     console.log("fetched posts not ok");
