@@ -30,31 +30,54 @@ function Homepage() {
 
     // const [loggedIn, setLoggedIn] = useState([]);
 
+    // useEffect(() => {
+
+    //     const fetchPosts = async () => {
+    //         // fetch("https://boxhub-mu.vercel.app/api/posts") // change the url
+    //         fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts") // change the url
+    //             .then((response) => {
+    //                 // Check the content type to determine how to handle the response
+    //                 const contentType = response.headers.get('Content-Type');
+    //                 if (contentType && contentType.includes('application/json')) {
+    //                     return response.json(); // Parse as JSON
+    //                 } else {
+    //                     return response.text(); // Fallback: Parse as plain text (or HTML)
+    //                 }
+    //             })
+    //             .then((data) => console.log('Response data:', data))
+    //             .catch((error) => console.error('Fetch error:', error));
+    //     };
+
+    //     fetchPosts();
+    // }, []);
+
+    
     useEffect(() => {
+        // fetch the data
+        // display it on "recent-boxing-news"
 
         const fetchPosts = async () => {
-            // fetch("https://boxhub-mu.vercel.app/api/posts") // change the url
-            fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts") // change the url
+            try {
 
-                .then((response) => {
-                    // Check the content type to determine how to handle the response
-                    const contentType = response.headers.get('Content-Type');
-                    if (contentType && contentType.includes('application/json')) {
-                        return response.json(); // Parse as JSON
-                    } else {
-                        return response.text(); // Fallback: Parse as plain text (or HTML)
-                    }
-                })
-                .then((data) => console.log('Response data:', data))
-                .catch((error) => console.error('Fetch error:', error));
+                // const fetchedPosts = await fetch("http://localhost:5000/api/posts/"); //https://boxhub-backend.vercel.app/api/posts
+                const fetchedPosts = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts"); 
 
+                if (fetchedPosts.ok) {
+                    const fetchedPostsJson = await fetchedPosts.json();
+
+                    setPosts(fetchedPostsJson.rows);
+                }
+                else {
+                    console.log("fetched posts not ok");
+                }
+            }
+            catch (error) {
+                console.log("Error setting posts equal to fetched posts : ", error);
+            }
         };
-
-        fetchPosts();
-
-
         fetchPosts();
     }, []);
+
 
     useEffect(() => {
 
