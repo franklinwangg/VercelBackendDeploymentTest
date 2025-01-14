@@ -57,29 +57,38 @@ function Homepage() {
         // display it on "recent-boxing-news"
 
         const fetchPosts = async () => {
-            try {
 
-                // const fetchedPosts = await fetch("http://localhost:5000/api/posts/"); //https://boxhub-backend.vercel.app/api/posts
-                const fetchedPosts = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts"); 
-                // const fetchedPosts = await fetch("https://test-vercel-backend-deployment-62pnuqdjm.vercel.app/api/posts"); 
+            fetch("https://test-vercel-backend-deployment-62pnuqdjm.vercel.app/api/posts")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log("data : ", data);
+                setPosts(data.rows);
+            })
 
+            // try {
 
-                if (fetchedPosts.ok) {
-                    const fetchedPostsJson = await fetchedPosts.json();
+            //     // const fetchedPosts = await fetch("http://localhost:5000/api/posts/"); //https://boxhub-backend.vercel.app/api/posts
+            //     const fetchedPosts = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts"); 
+            //     // const fetchedPosts = await fetch("https://test-vercel-backend-deployment-62pnuqdjm.vercel.app/api/posts"); 
 
-                    console.log("fetchedPostsJson.rows : ", fetchedPostsJson.rows);
-                    console.log("first posts ", posts);
-                    setPosts(fetchedPostsJson.rows);
-                    console.log("second posts ", posts);
+            //     if (fetchedPosts.ok) {
+            //         const fetchedPostsJson = await fetchedPosts.json(); 
 
-                }
-                else {
-                    console.log("fetched posts not ok");
-                }
-            }
-            catch (error) {
-                console.log("Error setting posts equal to fetched posts : ", error);
-            }
+            //         console.log("fetchedPostsJson.rows : ", fetchedPostsJson.rows); // undefined
+            //         console.log("first posts ", posts);
+            //         setPosts(fetchedPostsJson.rows);
+            //         console.log("second posts ", posts);
+
+            //     }
+            //     else {
+            //         console.log("fetched posts not ok");
+            //     }
+            // }
+            // catch (error) {
+            //     console.log("Error setting posts equal to fetched posts : ", error);
+            // }
         };
         fetchPosts();
     }, []);
