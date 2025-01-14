@@ -34,7 +34,7 @@ function Homepage() {
 
         const fetchPosts = async () => {
             // fetch("https://boxhub-mu.vercel.app/api/posts") // change the url
-            fetch("https://vercel-backend-deployment-test.vercel.app/api/posts") // change the url
+            fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts") // change the url
 
                 .then((response) => {
                     // Check the content type to determine how to handle the response
