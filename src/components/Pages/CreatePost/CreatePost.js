@@ -56,7 +56,7 @@ function CreatePost() {
         else {}
 
         // second fetch method uploads the image using the multer instance
-        await fetch("https://boxhub-mu.vercel.app/api/createPostImage", {
+        await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostImage", {
             method: "POST",
             body: formData,
         })
