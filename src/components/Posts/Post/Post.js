@@ -52,7 +52,7 @@ const Post = () => {
 
             setIsLoading(true);
             try {
-                await fetch(`https://boxhub-mu.vercel.app/api/comments?post_id=${idOfParentPost}&comment_id=null`, { // postId, commentId
+                await fetch(`https://vercel-backend-deployment-test-d24q.vercel.app/api/comments?post_id=${idOfParentPost}&comment_id=null`, { // postId, commentId
                 method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -101,7 +101,7 @@ const Post = () => {
         try {
             const postId = location.state.id;
             
-            const response = await fetch(`https://boxhub-mu.vercel.app/api/comments?postId=${postId}`);
+            const response = await fetch(`https://vercel-backend-deployment-test-d24q.vercel.app/api/comments?postId=${postId}`);
 
             if(!response.ok) {
                 throw new Error(`error fetching url : ${response.status}`);

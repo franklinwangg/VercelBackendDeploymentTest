@@ -8,7 +8,7 @@ function Register() {
     const handleButtonClick = async (event) => {
         try {
 
-            fetch("https://boxhub-mu.vercel.app/api/users/", {
+            fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

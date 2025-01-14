@@ -60,7 +60,7 @@ const Comment = (props) => {
 
                         // <Comment comment_id = {comment.comment_id} post_id = {location.state.id} author = {comment.author} level = {comment.level}
                         //     handleReplySubmission = {handleReplySubmission}/>
-            const response = await fetch(`https://boxhub-mu.vercel.app/api/comments?post_id=${post_id}&comment_id=${comment_id}`, { // ???
+            const response = await fetch(`https://vercel-backend-deployment-test-d24q.vercel.app/api/comments?post_id=${post_id}&comment_id=${comment_id}`, { // ???
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

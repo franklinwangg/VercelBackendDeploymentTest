@@ -28,7 +28,7 @@ function CreatePost() {
         // await fetch("http://localhost:3000/api/posts/createPostTitleAndContent", {
         let postIdVar;
 
-        await fetch("https://boxhub-mu.vercel.app/api/createPostTitleAndContent", {
+        await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostTitleAndContent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
