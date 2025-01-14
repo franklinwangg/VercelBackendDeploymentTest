@@ -58,7 +58,7 @@ function Homepage() {
 
         const fetchPosts = async () => {
 
-            fetch("https://test-vercel-backend-deployment-62pnuqdjm.vercel.app/api/posts")
+            fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
             .then((response) => {
                 return response.json();
             })
