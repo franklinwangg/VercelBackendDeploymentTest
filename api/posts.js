@@ -40,9 +40,6 @@ export default async function handler(req, res) {
     await client.connect();
 
     try {
-
-      console.log("1");
-
       const result = await client.query("SELECT * FROM posts");
       await client.end();
       return res.status(200).json(result.rows); // Send the posts as JSON

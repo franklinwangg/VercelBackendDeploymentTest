@@ -27,35 +27,7 @@ function Homepage() {
     // let post1, post2, post3, post4, post5, post6;
 
 
-
-    // const [loggedIn, setLoggedIn] = useState([]);
-
-    // useEffect(() => {
-
-    //     const fetchPosts = async () => {
-    //         // fetch("https://boxhub-mu.vercel.app/api/posts") // change the url
-    //         fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts") // change the url
-    //             .then((response) => {
-    //                 // Check the content type to determine how to handle the response
-    //                 const contentType = response.headers.get('Content-Type');
-    //                 if (contentType && contentType.includes('application/json')) {
-    //                     return response.json(); // Parse as JSON
-    //                 } else {
-    //                     return response.text(); // Fallback: Parse as plain text (or HTML)
-    //                 }
-    //             })
-    //             .then((data) => console.log('Response data:', data))
-    //             .catch((error) => console.error('Fetch error:', error));
-    //     };
-
-    //     fetchPosts();
-    // }, []);
-
-
     useEffect(() => {
-        // fetch the data
-        // display it on "recent-boxing-news"
-
 
         fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
             .then((response) => {
