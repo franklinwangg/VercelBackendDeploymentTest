@@ -25,11 +25,21 @@ const s3 = new S3({
 
 export default async function createPostTitleAndContent(req, res) {
 
+    const allowedOrigins = [
+        'https://www.boxingnews258.com',
+        'http://localhost:3000',
+      ];
+      
+      const origin = req.headers.origin;
+      if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     if(req.method === "POST") {
         try {
-
-            // const expressReq = express.json(req);
-            // const { title, content } = expressReq.body;
     
             const { title, content } = req.body;
 

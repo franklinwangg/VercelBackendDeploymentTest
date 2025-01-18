@@ -1,40 +1,17 @@
 import pkg from 'pg';
 const { Client } = pkg;
 import bcrypt from "bcryptjs";
-// import express from "express";
-
-// const app = express();
-
-// // Configure CORS
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*'); // Update with your frontend's origin
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
-
-// app.use(express.json()); 
 
 export default async function handler(req, res) {
   
-  console.log("first req : ", req);
   if (req.method === "OPTIONS") {
-    console.log("1");
     return res.status(200).end(); // Send success status
-  }
-  if(req.method === "GET") {
-    console.log("2");
-
-    return res.json("fetched");
   }
   
   else if (req.method === "POST") {
-    console.log("3");
-
     const { action } = req.query;
 
     if (action === "login") {
-      console.log("handling login");
       await handleLogin(req, res);
     } else {
       await handleRegister(req, res);

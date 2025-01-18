@@ -22,6 +22,6 @@ dist/
 # Miscellaneous files that don't need to be tracked
 goals.txt
 oldCode.txt
-overallGoals.txt
+remainingGoals.txt
 .vercel
 server.js
