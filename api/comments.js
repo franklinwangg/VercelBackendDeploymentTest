@@ -11,7 +11,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend's origin
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.boxingnews258.com'); // Update with your frontend's origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
 
