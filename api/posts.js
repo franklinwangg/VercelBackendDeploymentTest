@@ -24,10 +24,10 @@ const s3 = new S3({
 export default async function handler(req, res) {
 
 
-  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend's origin
-  // // res.setHeader('Access-Control-Allow-Origin', 'https://boxhub-h57jccbeh-franklin-wangs-projects.vercel.app/'); // Update with your frontend's origin
-  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
-  // res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
+  res.setHeader('Access-Control-Allow-Origin', 'http://boxingnews258.com'); // Update with your frontend's origin
+  // res.setHeader('Access-Control-Allow-Origin', 'https://boxhub-h57jccbeh-franklin-wangs-projects.vercel.app/'); // Update with your frontend's origin
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allowed headers
 
 
   if (req.method === "GET") {
