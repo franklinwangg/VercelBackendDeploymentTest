@@ -9,6 +9,8 @@ function CreatePost() {
     const [title, setTitle] = useState("");
     const [content, setcontent] = useState("");
     const [image, setImage] = useState(null);
+    const apiEndpointUrl = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
         // This will run every time `image` is updated
@@ -28,7 +30,8 @@ function CreatePost() {
         // await fetch("http://localhost:3000/api/posts/createPostTitleAndContent", {
         let postIdVar;
 
-        await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostTitleAndContent", {
+        await fetch(`${apiEndpointUrl}/api/createPostTitleAndContent`, {
+            // await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostTitleAndContent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -38,28 +41,39 @@ function CreatePost() {
                 content: content,
             })
         })
-        .then((response) => {
-            const jsonResponse = response.json();
-            return jsonResponse;
-        })
-        .then((data) => {
-            postIdVar = data.postId;
-        })
+            .then((response) => {
+                const jsonResponse = response.json();
+                return jsonResponse;
+            })
+            .then((data) => {
+                postIdVar = data.postId;
+            })
 
+        console.log("1");
         const formData = new FormData();
 
         if (image) {
+            console.log("2");
+
             formData.append("image", image); // Append the image file
+            console.log("3");
+            console.log("image : ", image);
 
             formData.append("postId", postIdVar); // Append the image file            
         }
-        else {}
+        else {
+            console.log("4");
+
+        }
+        console.log("5");
 
         // second fetch method uploads the image using the multer instance
+        // await fetch(`${apiEndpointUrl}/api/createPostImage`, {
         await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostImage", {
             method: "POST",
             body: formData,
-        })
+        }) // fails this one
+        console.log("6");
 
 
     };

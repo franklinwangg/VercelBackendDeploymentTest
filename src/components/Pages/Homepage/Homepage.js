@@ -26,10 +26,13 @@ function Homepage() {
     const [showLogoutButton, setShowLogoutButton] = useState(false);
     // let post1, post2, post3, post4, post5, post6;
 
+    const apiEndpointUrl = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
         // fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
-        fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
+        // fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
+        fetch(`${apiEndpointUrl}/api/posts`)
             .then((response) => {
                 return response.json();
             })
