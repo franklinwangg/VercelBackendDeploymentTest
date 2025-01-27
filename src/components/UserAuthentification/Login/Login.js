@@ -20,6 +20,7 @@ function Login() {
             // fetch(`${apiEndpointUrl}/api/users?action=login`)
 
             // const response = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users?action=login", {
+            console.log(`api endpoint url : ${apiEndpointUrl}`);
             const response = await fetch(`${apiEndpointUrl}/api/users?action=login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
