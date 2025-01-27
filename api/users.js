@@ -109,9 +109,13 @@ module.exports = async function handler(req, res) {
   else if (req.method === "POST") {
     const { action } = req.query;
 
+    console.log("in post");
     if (action === "login") {
+      console.log("going to handle login")
+
       await handleLogin(req, res);
     } else {
+      console.log("going to handle register")
       await handleRegister(req, res);
     }
   } 
@@ -123,6 +127,8 @@ module.exports = async function handler(req, res) {
 
 // Login handler
 async function handleLogin(req, res) {
+  console.log("inside handleLogin now");
+
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -141,7 +147,7 @@ async function handleLogin(req, res) {
     ]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(401).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(password, result.rows[0].password_hash);
@@ -160,6 +166,7 @@ async function handleLogin(req, res) {
 
 // Register handler
 async function handleRegister(req, res) {
+  console.log("inside handleRegister now");
   const { username, password } = req.body;
 
   if (!username || !password) {

@@ -49,31 +49,28 @@ function CreatePost() {
                 postIdVar = data.postId;
             })
 
-        console.log("1");
         const formData = new FormData();
 
         if (image) {
-            console.log("2");
-
             formData.append("image", image); // Append the image file
-            console.log("3");
-            console.log("image : ", image);
-
             formData.append("postId", postIdVar); // Append the image file            
         }
         else {
             console.log("4");
-
         }
-        console.log("5");
+        console.log("formData : ");
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+          }
+        console.log("sending in formData");
 
         // second fetch method uploads the image using the multer instance
-        // await fetch(`${apiEndpointUrl}/api/createPostImage`, {
-        await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostImage", {
+        await fetch(`${apiEndpointUrl}/api/createPostImage`, {
+        // await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/createPostImage", {
             method: "POST",
             body: formData,
-        }) // fails this one
-        console.log("6");
+        })
+        console.log("finished uploading formData stuff");
 
 
     };

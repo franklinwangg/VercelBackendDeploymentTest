@@ -1,0 +1,48 @@
+## **BoxingNews258.com**  
+*A forum platform for boxing enthusiasts to share articles, predictions, and discussions.*
+
+---
+
+### **Table of Contents**
+- [Overview](#overview)  
+- [Features](#features)  
+- [Technologies](#technologies)  
+- [Setup](#setup)  
+
+---
+
+### **Overview**  
+BoxHub enables users to post articles and images, engage in discussions, and leverage AI for boxing match predictions.
+
+---
+
+### **Features**  
+- Post articles with images.  
+- Commenting system.  
+- Secure user authentication.  
+- AWS S3 for image and article storage.  
+
+---
+
+### **Technologies**  
+- **Frontend**: React, CSS, HTML 
+- **Backend**: Node.js, Express, PostgreSQL  
+- **Cloud**: AWS S3
+
+---
+
+## **Setup**
+
+1. **Create a `.env` file in the root directory**:  
+   `touch .env`
+
+2. **Add environment variables**:  
+   Copy and paste the secret `.env` content into the `.env` file.
+
+3. **Start the server**:  
+   `node server.js`  
+   The server will run on port `3001`.
+
+4. **Run the frontend**:  
+   Navigate to the root directory and run:  
+   `npm start`

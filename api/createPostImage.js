@@ -85,24 +85,16 @@ const s3 = new S3({
     },
 });
 
-console.log("1");
 const client = new Client({
     connectionString: process.env.SUPABASE_CONNECTION_STRING_2,
     ssl: { rejectUnauthorized: false },
 });
-console.log("2");
 
 client.connect();
 
-console.log("3");
-
 const imageUpload = multer({ storage: multer.memoryStorage() });
-console.log("4");
 
 async function createPostImage(req, res) {
-    console.log("Form Data: ", req.body); // This will log fields like 'postId' from the form
-    console.log("Uploaded Image: ", req.file); // This logs the image details (e.g., filename, path, etc.)
-  
 
     imageUpload.single('image')(req, res, async (err) => {
         if (err) {
@@ -111,11 +103,10 @@ async function createPostImage(req, res) {
         }
 
         try {
+            console.log("1");
             const { postId } = req.body;
-            console.log("post Id : ", postId);
-
             const image = req.file;
-            console.log("image : ", image);
+            console.log("2");
 
             const params = {
                 Bucket: "boxhub-images",
@@ -126,12 +117,15 @@ async function createPostImage(req, res) {
             };
 
             await s3.send(new PutObjectCommand(params));
+            console.log("3");
 
             const imageUrl = `https://boxhub-images.s3.us-west-1.amazonaws.com/${postId}`;
             await client.query("UPDATE posts SET image_url = $1 WHERE id = $2", [
                 imageUrl,
                 postId,
             ]);
+
+            console.log("4");
 
             res.status(200).json({ success: true, imageUrl });
         } catch (error) {

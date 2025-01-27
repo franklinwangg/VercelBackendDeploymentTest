@@ -5,11 +5,14 @@ function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const apiEndpointUrl = process.env.REACT_APP_API_URL;
+
+
     const handleButtonClick = async (event) => {
         try {
-
-            fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users/", {
-                method: "POST",
+            fetch(`${apiEndpointUrl}/api/users/`, {
+            // fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users/", {
+                    method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     username: username,

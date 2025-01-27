@@ -10,12 +10,17 @@ function Login() {
     const [enteredPassword, setEnteredPassword] = useState("");
     const { username, setUsername } = useContext(UserContext); // Access username and setUsername from context
 
+    const apiEndpointUrl = process.env.REACT_APP_API_URL;
+
     const navigate = useNavigate();
 
     const handleButtonClick = async () => {
 
         try {
-            const response = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users?action=login", {
+            // fetch(`${apiEndpointUrl}/api/users?action=login`)
+
+            // const response = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users?action=login", {
+            const response = await fetch(`${apiEndpointUrl}/api/users?action=login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -46,7 +51,7 @@ function Login() {
     };
 
     return (
-        <div id = "login-container">
+        <div id="login-container">
             <input type="text" id="username" value={enteredUsername} placeholder="Username" onChange={changeEnteredUsername}></input>
             <input type="text" id="password" value={enteredPassword} placeholder="Password" onChange={changeEnteredPassword}></input>
             <button id="login-button" onClick={handleButtonClick}>Login</button>
