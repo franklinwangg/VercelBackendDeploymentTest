@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/UserContext';
@@ -9,6 +9,7 @@ function Login() {
     const [enteredUsername, setEnteredUsername] = useState("");
     const [enteredPassword, setEnteredPassword] = useState("");
     const { username, setUsername } = useContext(UserContext); // Access username and setUsername from context
+    const [errorMessage, setErrorMessage] = useState(""); // State to handle the error message
 
     const apiEndpointUrl = process.env.REACT_APP_API_URL;
 
@@ -17,9 +18,6 @@ function Login() {
     const handleButtonClick = async () => {
 
         try {
-            // fetch(`${apiEndpointUrl}/api/users?action=login`)
-
-            // const response = await fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/users?action=login", {
             console.log(`api endpoint url : ${apiEndpointUrl}`);
             const response = await fetch(`${apiEndpointUrl}/api/users?action=login`, {
                 method: "POST",
@@ -36,25 +34,57 @@ function Login() {
                 setUsername(enteredUsername);
                 navigate("/");
             } else {
+                setErrorMessage("Sorry, your username or password is invalid."); // Set the error message
                 console.log("login failed");
             }
+            setEnteredUsername("");
+            setEnteredPassword("");
         } catch (error) {
             console.error("Error during login:", error);
         }
     };
 
-
     const changeEnteredUsername = (event) => {
-        setEnteredUsername(event.target.value);
+        const newUsername = event.target.value;
+        setEnteredUsername(newUsername);
+        printUsername(newUsername); // Call function to print the username
     };
+
     const changeEnteredPassword = (event) => {
         setEnteredPassword(event.target.value);
     };
 
+    // Function to print the username
+    const printUsername = (username) => {
+        console.log("Entered Username: ", username);
+    };
+
+    // UseEffect to print the username right when the page is loaded
+    useEffect(() => {
+        printUsername(enteredUsername);  // Call the function to print username on load
+    }, []);  // Empty dependency array means this runs once after the component mounts
+
     return (
         <div id="login-container">
-            <input type="text" id="username" value={enteredUsername} placeholder="Username" onChange={changeEnteredUsername}></input>
-            <input type="text" id="password" value={enteredPassword} placeholder="Password" onChange={changeEnteredPassword}></input>
+            {/* Conditionally render the error message */}
+            {errorMessage && <div style={{ color: "red", marginBottom: "10px" }}>{errorMessage}</div>}
+
+            <input 
+                type="text" 
+                id="username" 
+                value={enteredUsername} 
+                placeholder="Username" 
+                onChange={changeEnteredUsername} 
+                autoComplete="off" // Disable autocomplete
+            />
+            <input 
+                type="password" 
+                id="password" 
+                value={enteredPassword} 
+                placeholder="Password" 
+                onChange={changeEnteredPassword} 
+                autoComplete="new-password" // Disable autocomplete for password field
+            />
             <button id="login-button" onClick={handleButtonClick}>Login</button>
             <div></div>
             <Link to="/register">Register here</Link>

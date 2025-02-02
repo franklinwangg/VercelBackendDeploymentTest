@@ -37,7 +37,6 @@ const HeaderBar = () => {
 
     const handleCNPPageButtonClick = async () => {
         try {
-            console.log("tryna naviagte");
             navigate("/createPost");
         } catch (error) {
             console.error("Error during navigating to CNP page :", error);
@@ -52,9 +51,6 @@ const HeaderBar = () => {
                 <div id="upper-logo-bar">
 
                     <button id="plus-button" onClick = {handleCNPPageButtonClick}>+</button>
-
-
-
                     {username && <div id="username-text">{username}</div>}
 
                     <button id="go-to-login-page-button" onClick={username == null ? handleLPBClick : togglePopup}>

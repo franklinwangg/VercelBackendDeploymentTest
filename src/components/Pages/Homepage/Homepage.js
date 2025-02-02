@@ -30,8 +30,6 @@ function Homepage() {
 
 
     useEffect(() => {
-        // fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
-        // fetch("https://vercel-backend-deployment-test-d24q.vercel.app/api/posts")
         fetch(`${apiEndpointUrl}/api/posts`)
             .then((response) => {
                 return response.json();

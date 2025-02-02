@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./Register.css";
 
 function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+    
 
     const apiEndpointUrl = process.env.REACT_APP_API_URL;
 
@@ -19,6 +23,7 @@ function Register() {
                     password: password
                 })
             })
+            navigate("/login");
         }
         catch (error) {
             console.log("Error : ", error);
